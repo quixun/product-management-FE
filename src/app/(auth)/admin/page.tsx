@@ -19,7 +19,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (!user || user.role !== "admin") {
-      router.push("/admin/login-admin");
+      router.push("/");
     }
   }, [user, router]);
 

@@ -2,10 +2,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OverviewTab from "./tabs/OverviewTab";
 import StaffTab from "./tabs/StaffTab";
 import ProductsTab from "./tabs/ProductsTab";
-import SettingsTab from "./tabs/SettingsTab";
 import { Product, User } from "@/types/auth-type";
+import StatsTab from "./tabs/Statictis";
 
-export type AdminTabId = "overview" | "users" | "products" | "settings";
+export type AdminTabId = "overview" | "statictis" | "users" | "products";
 
 interface DeletedUser extends User {
   deletedAt?: string;
@@ -23,9 +23,9 @@ interface AdminTabsProps {
 
 const TABS = [
   { id: "overview", label: "Overview" },
+  { id: "statictis", label: "Statictis" },
   { id: "users", label: "Staff" },
   { id: "products", label: "Products" },
-  { id: "settings", label: "Settings" },
 ] as const;
 
 export default function AdminTabs({
@@ -35,7 +35,6 @@ export default function AdminTabs({
   deletedStaff = [],
   products,
   onTabChange,
-  onSettingsSave,
 }: AdminTabsProps) {
   const handleTabChange = (value: string) => {
     if (onTabChange) {
@@ -65,7 +64,12 @@ export default function AdminTabs({
         let content;
         switch (tab.id) {
           case "overview":
-            content = <OverviewTab user={user} staffCount={staff?.length || 0} />;
+            content = (
+              <OverviewTab user={user} staffCount={staff?.length || 0} />
+            );
+            break;
+          case "statictis":
+            content = <StatsTab user={user} />;
             break;
           case "users":
             content = <StaffTab staff={staff} deletedStaff={deletedStaff} />;
@@ -73,11 +77,8 @@ export default function AdminTabs({
           case "products":
             content = <ProductsTab products={products} />;
             break;
-          case "settings":
-            content = <SettingsTab onSave={onSettingsSave} />;
-            break;
         }
-        
+
         return (
           <TabsContent key={tab.id} value={tab.id}>
             {content}

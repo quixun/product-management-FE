@@ -76,7 +76,7 @@ export default function ProductsTab({ products = [] }: ProductsTabProps) {
                       />
                     </div>
                   </TableCell>
-                  <TableCell className="font-medium">{product.name}</TableCell>
+                  <TableCell className="font-medium max-w-32 overflow-hidden text-ellipsis">{product.name}</TableCell>
                   <TableCell>{product.type}</TableCell>
                   <TableCell>{formatPriceWithDots(product.price)}</TableCell>
                   <TableCell>
